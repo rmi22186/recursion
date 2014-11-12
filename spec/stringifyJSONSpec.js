@@ -8,6 +8,7 @@ describe('stringifyJSON', function(){
       var testStringResult = stringifyJSON(testString);
       var testStringExpected = JSON.stringify(testString);
 
+
     expect(testStringResult).to.equal(testStringExpected);
 
   })
@@ -23,8 +24,18 @@ describe('stringifyJSON', function(){
   });
 
 
-  it('arrays', function() {
-    var testArray = ['1', 2, true, ['anotherarray']];
+  it('simple arrays', function() {
+    var testArray = ['1', 2, true, ['anotherarray', 'anotherarrayitem'],['yet another array', 'yari2']];
+
+      var testArrayResult = stringifyJSON(testArray);
+      var testArrayExpected = JSON.stringify(testArray);
+
+    expect(testArrayResult).to.equal(testArrayExpected);
+
+  });
+
+  it('array with objects', function() {
+      var testArray = ['1', 2, {obj1: 'value1'}, true];
 
       var testArrayResult = stringifyJSON(testArray);
       var testArrayExpected = JSON.stringify(testArray);
@@ -34,7 +45,7 @@ describe('stringifyJSON', function(){
   });
 
   it('simple objects', function() {
-    var testObject = {x: 'key1', y: 'key2', z: 'key3'};
+    var testObject = {x: 'value1', y: 'value2', z: 'value3'};
 
       var testObjectResult = stringifyJSON(testObject);
       var testObjectExpected = JSON.stringify(testObject);
@@ -44,7 +55,7 @@ describe('stringifyJSON', function(){
   });
 
   it('complicated objects', function() {
-    var testObject = {obj1: {obj2: {obj3: 'key1'}}, obj4: 'key2'};
+    var testObject = {key1: {key2: {key3: 'value1'}, key4: 'value2'}, key5: 'value3', key6: 'value4'};
 
       var testObjectResult = stringifyJSON(testObject);
       var testObjectExpected = JSON.stringify(testObject);

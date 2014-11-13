@@ -2,27 +2,51 @@
 // var stringifyJSON = JSON.stringify;
 
 // but you don't so you're going to write it from scratch:
+
+	/* use cases - 	stringifiable values: 
+																					-numbers
+																					-booleans
+																					-strings
+																					-empty array
+																					-empty objects
+
+	*/
 var stringifyJSON = function(obj) {
 
+	// handle literals
 
-  if (typeof obj === 'string') {
-      return ('"' + obj + '"');
-  }
-  if (typeof obj === 'number' || typeof obj === 'boolean') {
-    return obj.toString();
-  }
+  if (typeof obj === 'string') { return ('"' + obj + '"'); }
+  if (typeof obj === 'number' || typeof obj === 'boolean') { return obj.toString();}
+	if (obj === null) { return 'null' }
+	if (obj === undefined) { return '' }
+
   if (Array.isArray(obj)) {
-    return ('"[' + obj + ']"');
-  } 
+    
+    var result = '['
+    for (var x = 0; x < obj.length-1; x++) {
+					result += stringifyJSON(obj[x]) + ',';
+				}
+				return result += stringifyJSON(obj[x]) + ']'
+  		}
+   
+  if (obj !== null && typeof obj === 'object') {
+  // 	var objectKeys = Object.keys(obj);
+  // 	var objectKeyLength = objectKeys.length; 							//objectKeys has all of the keys from obj in an array
+  // 	for (var i = 0; i < objectKeyLength; i++) {
+  // 		if (typeof objectKeys[i] === 'object') {
+  // 			return result + objectKeys[i] + '":' + stringifyJSON(objectKeys[i]) + ', ' + '}';
+  // 		}
+	 //  		return result + objectKeys[i] + '":' + stringifyJSON(obj[objectKeys[i]]) + '}';
+		// }
+		var result = '';
+			for (var key in obj) {
+				if (key === 'function' || key === 'undefined') { return '{}' }
+				result += '"' + key + '":' + stringifyJSON(obj[key]) + ','
+			}
 
 
-  //objectKeys has all of the keys from obj in an array
-  var objectKeys = Object.keys(obj);
+		return '{' + result.slice(0,-1) + '}'
+		
+	}
 
-		var i = 0;
-		var objectKeyLength = objectKeys.length;
-		while (i < objectKeyLength) {
-	  	return '{"'+ objectKeys[i] + ": " + stringifyJSON(obj[objectKeys[i]]) + '}';
-	  	i++
-		}
 };

@@ -3,14 +3,6 @@
 
 // but you don't so you're going to write it from scratch:
 
-	/* use cases - 	stringifiable values: 
-																					-numbers
-																					-booleans
-																					-strings
-																					-empty array
-																					-empty objects
-
-	*/
 var stringifyJSON = function(obj) {
 
 	// handle literals
